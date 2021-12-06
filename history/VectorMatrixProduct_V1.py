@@ -11,7 +11,7 @@ def mvP(matrix, vector):
 
     for i in range(row):
         for j in range(col):
-            mvP[i] = (mvP[i] + m[i][j] * v[j])
+            mvP[i] = (mvP[i] + matrix[i][j] * vector[j])
     return mvP
 
 print(mvP(m, v))
