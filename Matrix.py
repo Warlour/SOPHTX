@@ -1,25 +1,21 @@
 class Matrix:
     def __init__(self, a = [[]]):
-        self.a = a
-        for row in self.a:
-            if (len(row) != len(self.a[0])):
+        for row in a:
+            if (len(row) != len(a[0])):
                 raise ValueError("Length of row and column of matrix is not the same")
-            
+        
+        self.size = [len(a), len(a[0])]
 
         self.data = a
-        self.size = [len(self.a), len(self.a[0])]
+        
 
     def __add__(self, other):
+        if (type(other) != type(Matrix())):
+            raise TypeError("Second argument is not a matrix")
+        # raise valueerror if first and second matrix not equal in size
 
-    #    for row in b:
-    #        if (len(row) != len(b[0])):
-    #            raise ValueError("Length of row and column of second matrix is not the same")
-
-    #    for row in b:
-    #         raise if row and column in a and b not the same
-
-        a_row = len(self.a)
-        a_col = len(self.a[0])
+        a_row = len(self.data)
+        a_col = len(self.data[0])
 
         sum = []
         
@@ -34,8 +30,11 @@ class Matrix:
 
         for r in range(a_row):
             for c in range(a_col):
-                sum[r][c] = self.a[r][c] + other.a[r][c]
-        return sum
+                sum[r][c] = self.data[r][c] + other.data[r][c]
+        return Matrix(sum)
+    def __str__(self):
+        return str(self.data)
+
 
 
     
@@ -54,15 +53,4 @@ if (__name__ == "__main__"):
     data3 = [[1, 2, 3, 4], [5, 6, 7, 8]]
     c = Matrix(data3)
 
-    print(a + b)
-
-    # ab = a + b
-    # print(ab + c)
-    # TypeError: can only concatenate list (not "Matrix") to list
-
-    # Følgende virker, dvs. at returningsværdien for __add__ skal være en matrix fra Matrix-klassen
-    ab = Matrix(a + b)
-    print(ab + c)
-
-    # print(a + b + c)
-    # TypeError: can only concatenate list (not "Matrix") to list
+    print()
