@@ -2,19 +2,18 @@ class Matrix:
     def __init__(self, a = [[]]):
         for row in a:
             if(len(row) != len(a[0])):
-                raise ValueError("Length of row and column of matrix is not the same")
-        
-        self.size = [len(a), len(a[0])]
+                raise ValueError("A matrix must have the same amount of values in each row and column")
 
+        self.size = [len(a), len(a[0])]
         self.data = a
 
     # Addition of two matrixes
     def __add__(self, other):
         if(type(other) != type(Matrix())):
-            raise TypeError("Second argument is not a matrix")
+            raise TypeError(f"{other} is not a matrix, specify with Matrix()")
 
         if(self.size != other.size):
-            raise ValueError("Dimensions of Matrix does not match")
+            raise ValueError("Dimensions of either matrix does not match")
 
         a_row = len(self.data)
         a_col = len(self.data[0])
@@ -31,28 +30,30 @@ class Matrix:
                 sum[r][c] = self.data[r][c] + other.data[r][c]
         return Matrix(sum)
 
+    # Multiply two matrixes
     def __multiply__(self, other):
         pass
 
+    # 
     def __str__(self):
         return str(self.data)
 
 if (__name__ == "__main__"):
-    data = [[1, 2, 3, 4], [5, 6, 7, 8]]
-    data2 = [[1, 2, 3, 4], [5, 6, 7, 8]]
-    data3 = [[1, 2, 3, 4], [5, 6, 7, 8]]
-    data4 = [[1, 2], [3, 4], [5, 6]]
-    data5 = [[5, 2], [1, 7], [9, 1]]
-    data6 = [[8, 1], [3, 1], [10, 9]]
+    try:
+        data = [[1, 2, 3, 4], [5, 6, 7, 8]]
+        data2 = [[1, 2, 3, 4], [5, 6, 7, 8]]
+        data3 = [[1, 2, 3, 4], [5, 6, 7, 8]]
+        data4 = [[1, 2], [3, 4], [5, 6]]
+        data5 = [[5, 2], [1, 7], [9, 1]]
+        data6 = [[8, 1], [3, 1], [10, 2]]
 
-    a = Matrix(data)
-    b = Matrix(data2)
-    c = Matrix(data3)
-
-    print(a + b + c)
-
-    d = Matrix(data4)
-    e = Matrix(data5)
-    f = Matrix(data6)
-
-    print(d + e + f)
+        a = Matrix(data)
+        b = Matrix(data2)
+        c = Matrix(data3)
+        d = Matrix(data4)
+        e = Matrix(data5)
+        f = Matrix(data6)
+        print(f"a + b + c = {a + b + c}\n")
+        print(f"d + e + c = {d + e + f}")
+    except Exception as e:
+        print(e)
