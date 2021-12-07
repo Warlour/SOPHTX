@@ -1,7 +1,7 @@
 class Matrix:
     def __init__(self, a = [[]]):
         for row in a:
-            if (len(row) != len(a[0])):
+            if(len(row) != len(a[0])):
                 raise ValueError("Length of row and column of matrix is not the same")
         
         self.size = [len(a), len(a[0])]
@@ -10,9 +10,12 @@ class Matrix:
         
 
     def __add__(self, other):
-        if (type(other) != type(Matrix())):
+        if(type(other) != type(Matrix())):
             raise TypeError("Second argument is not a matrix")
-        # raise valueerror if first and second matrix not equal in size
+
+        # raise ValueError if first and second matrix not equal in size
+        if(self.size != other.size):
+            raise ValueError("Dimensions of Matrix does not match")
 
         a_row = len(self.data)
         a_col = len(self.data[0])
@@ -32,6 +35,10 @@ class Matrix:
             for c in range(a_col):
                 sum[r][c] = self.data[r][c] + other.data[r][c]
         return Matrix(sum)
+
+    def __multiply__(self, other):
+        pass
+
     def __str__(self):
         return str(self.data)
 
@@ -53,4 +60,11 @@ if (__name__ == "__main__"):
     data3 = [[1, 2, 3, 4], [5, 6, 7, 8]]
     c = Matrix(data3)
 
-    print()
+    data4 = [[1, 2], [3, 4], [5, 6]]
+    d = Matrix(data4)
+    
+    print(a)
+    print(b)
+    print(c)
+
+    print(a + b + c)
