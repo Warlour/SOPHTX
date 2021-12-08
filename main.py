@@ -1,27 +1,11 @@
 from Matrix import Matrix
 from Vector import Vector
-
-# def mvP(matrix, vector):
-#     '''Returns a vector\n\nParameters: matrix, vector'''
-
-#     #if(type(matrix) != type(Matrix())):
-#         #raise TypeError("First argument should be of type Matrix")
-#     #if(type(vector) != type(Vector())):
-#         #raise TypeError("Second argument should be of type Vector")
-#     row = len(matrix)
-#     col = len(matrix[0])
-#     mvP = []
-
-#     for _ in range(row):
-#         mvP.append(0)
-
-#     for i in range(row):
-#         for j in range(col):
-#             mvP[i] = (mvP[i] + matrix[i][j] * vector[j])
-#     return mvP
+import ext_class_func as ecf
 
 data1 = [[1, 2], [6, 1], [8, 2], [9, 3]]
 a = Matrix(data1)
 
-# Size of 'a' matrix: [row, column]
-print(f"Size of a: {a.size}")
+data2 = [3, 4]
+b = Vector(data2)
+
+print(ecf.mvP(a, b))
