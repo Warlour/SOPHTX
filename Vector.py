@@ -20,6 +20,7 @@ class Vector:
         return str("You cannot multiply two vectors. However, you can calculate the scalarproduct using Vector.scalar(vector, vector)")
     
     def scalar(self, other):
+        '''Returns a constant\n\nParameters: vector, vector'''
         if (type(other) != type(Vector())):
             raise TypeError(f"{other} is not of type Vector")
 
