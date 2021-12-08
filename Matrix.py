@@ -2,7 +2,7 @@ class Matrix:
     def __init__(self, a = [[]]):
         for row in a:
             if(len(row) != len(a[0])):
-                raise ValueError("A matrix must have the same amount of values in each row and column")
+                raise ValueError(f"A matrix must have the same amount of values in each row and column.\nYours did not: {a}")
 
         self.size = [len(a), len(a[0])]
         self.data = a
@@ -13,7 +13,7 @@ class Matrix:
             raise TypeError(f"{other} is not a matrix, specify with Matrix()")
 
         if(self.size != other.size):
-            raise ValueError("Dimensions of either matrix does not match")
+            raise ValueError(f"Dimensions of either matrix does not match [rows, columns]\nSize of first matrix: {self.size}\nSize of second matrix: {other.size}")
 
         a_row = len(self.data)
         a_col = len(self.data[0])
