@@ -48,7 +48,7 @@ plt.matshow(x_test[image])
 y_predicted = model.predict(x_test_flattened)
 
 for i in range(len(y_example[image])):
-    print(f"Number {i}: {y_example[image][i]:.4f}")
+    print(f"Number {i}: {(y_example[image][i]*100):.2f}%")
 
 print(f"Predicted number: {y_test[image]}")
 
