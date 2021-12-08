@@ -17,18 +17,31 @@ class Vector:
         return Vector(sum)
 
     def __mul__(self, other):
-        return "You cannot multiply two vectors. However, you can calculate the scalarproduct using scalar(vector * vector)"
+        return str("You cannot multiply two vectors. However, you can calculate the scalarproduct using Vector.scalar(vector, vector)")
     
     def scalar(self, other):
-        pass
+        if (type(other) != type(Vector())):
+            raise TypeError(f"{other} is not of type Vector")
+
+        if (self.size != other.size):
+            raise ValueError("Vectors must be same size")
+
+        # Linear kombination
+        lk = 0
+
+        for i in range(len(self.data)):
+            lk += self.data[i] * other.data[i]
+
+        return lk
 
     def __str__(self):
         return str(self.data)
 
 if (__name__ == "__main__"):
-    data2 = [5, 2, 2]
+    data = [5, 2, 2]
+    a = Vector(data)
+    
+    data2 = [3, 7, 9]
     b = Vector(data2)
 
-    #print(b)
-    #print(b.size)
-    print(b*b)
+    print(Vector.scalar(a, b))
