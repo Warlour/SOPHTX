@@ -58,6 +58,9 @@ model.compile(
 # Does the training
 model.fit(x_train_flattened, y_train, epochs = 5)
 
+# Use model from image x_test and get 10 numbers in y_test
+y_test = model.predict(x_test)
+
 # Evaluate the accuracy of test data
 model.evaluate(x_test_flattened, y_test)
 
