@@ -58,8 +58,8 @@ model.compile(
 # Does the training
 model.fit(x_train_flattened, y_train, epochs = 5)
 
-# Use model from image x_test and get 10 numbers in y_test
-y_test = model.predict(x_test)
+# Use model from image x_test and get 10 numbers in y_example
+y_example = model.predict(x_test_flattened)
 
 # Evaluate the accuracy of test data
 model.evaluate(x_test_flattened, y_test)
@@ -111,4 +111,16 @@ plt.ylabel('Truth')
 
 plt.show()
 
-print(y_predicted[1])
+# print(y_predicted[1])
+# print(len(y_example))
+# y_example[0]
+# y_example[0][9]
+
+for i in range(len(y_example[0])):
+    print(f"Number {i}: {y_example[0][i]:.4f}")
+
+print(f"Predicted number: {y_test[0]}")
+
+
+plt.matshow(x_test[0])
+plt.show()
