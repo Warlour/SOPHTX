@@ -4,6 +4,9 @@ class Vector:
         self.data = a
 
     def __add__(self, other):
+        if (type(other) != type(Vector())):
+            raise TypeError(f"{other} is not a vector")
+
         if (self.size != other.size):
             raise ValueError("Vectors are not of same length")
 
@@ -41,7 +44,7 @@ class Vector:
 if (__name__ == "__main__"):
     data = [5, 2, 2]
     a = Vector(data)
-    
+
     data2 = [3, 7, 9]
     b = Vector(data2)
 
