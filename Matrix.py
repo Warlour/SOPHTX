@@ -1,5 +1,3 @@
-from Vector import Vector
-
 class Matrix:
     def __init__(self, a = [[]]):
         for row in a:
@@ -32,33 +30,98 @@ class Matrix:
                 sum[r][c] = self.data[r][c] + other.data[r][c]
         return Matrix(sum)
 
-    # Multiply two matrixes
+    # Multiply
     def __mul__(self, other):
+        # Multiply two matrixes
         if (type(other) == type(Matrix())):
             pass
+
+        # Multiply matrix with vector
         elif (type(other) == type(Vector())):
+            if (self.size[1] != other.size):
+                raise ValueError("The length of the vector must be equal to the amount of columns in the matrix")
+            
+            prod = []
+
+            for i in range(self.size[0]):
+                prod.append(0)
+                for j in range(self.size[1]):
+                    prod[i] = (prod[i] + self.data[i][j] * other.data[j])
+            return prod
+
+        else:
+            raise TypeError(f"{other} is an unknown datatype")
             
 
-    # 
     def __str__(self):
         return str(self.data)
+
+class Vector:
+    def __init__(self, a = []):
+        self.size = len(a)
+        self.data = a
+
+    def __add__(self, other):
+        if (type(other) != type(Vector())):
+            raise TypeError(f"{other} is not a vector")
+
+        if (self.size != other.size):
+            raise ValueError("Vectors are not of same length")
+
+        sum = []
+        for _ in self.data:
+            sum.append(0)
+
+        for i in range(len(sum)):
+            sum[i] = self.data[i] + other.data[i]
+
+        return Vector(sum)
+
+    def __mul__(self, other):
+        if (type(other) == type(Vector())):
+            raise TypeError("You cannot multiply two vectors.\nHowever, you can calculate the scalarproduct using vector1.scalar(vector2)")
+        elif (type(other) == type(Matrix())):
+            raise TypeError("Vector-matrixproduct is not supported")
+        else:
+            raise TypeError(f"{other} is an unknown datatype")
+
+
+    def scalar(self, other):
+        '''Returns a constant\n\nParameters: vector, vector'''
+        if (type(other) != type(Vector())):
+            raise TypeError(f"{other} is not of type Vector")
+
+        if (self.size != other.size):
+            raise ValueError("Vectors must be same size")
+
+        # Linear kombination
+        lk = 0
+
+        for i in range(len(self.data)):
+            lk += self.data[i] * other.data[i]
+
+        return lk
+
+    def __str__(self):
+        return "Vector column: " + str(self.data)
 
 if (__name__ == "__main__"):
     try:
         data = [[1, 2, 3, 4], [5, 6, 7, 8]]
-        data2 = [[1, 2, 3, 4], [5, 6, 7, 8]]
-        data3 = [[1, 2, 3, 4], [5, 6, 7, 8]]
-        data4 = [[1, 2], [3, 4], [5, 6]]
-        data5 = [[5, 2], [1, 7], [9, 1]]
-        data6 = [[8, 1], [3, 1], [10, 2]]
+        data2 = [[1, 2], [3, 4], [5, 6]]
+        data3 = [[5, 2], [1, 7], [9, 1]]
+        data4 = [[8, 1], [3, 1], [10, 2]]
+        data5 = [9, 3, 8, 1]
+        data6 = [8, 3]
 
-        a = Matrix(data)
-        b = Matrix(data2)
-        c = Matrix(data3)
-        d = Matrix(data4)
-        e = Matrix(data5)
-        f = Matrix(data6)
-        print(f"a + b + c = {a + b + c}\n")
-        print(f"d + e + c = {d + e + f}")
+        A = Matrix(data)
+        B = Matrix(data2)
+        C = Matrix(data3)
+        D = Matrix(data4)
+        a = Vector(data5)
+        b = Vector(data6)
+
+
+        print(B*b)
     except Exception as e:
         print(e)
