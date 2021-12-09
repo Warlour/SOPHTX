@@ -1,3 +1,5 @@
+from Vector import Vector
+
 class Matrix:
     def __init__(self, a = [[]]):
         for row in a:
@@ -31,8 +33,11 @@ class Matrix:
         return Matrix(sum)
 
     # Multiply two matrixes
-    def __multiply__(self, other):
-        pass
+    def __mul__(self, other):
+        if (type(other) == type(Matrix())):
+            pass
+        elif (type(other) == type(Vector())):
+            
 
     # 
     def __str__(self):
