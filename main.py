@@ -9,6 +9,11 @@ try:
     data2 = [[3, 4], [5, 8]]
     b = Matrix(data2)
 
-    print(a + b)
+    data3 = [1, 2, 3]
+    c = Vector(data3)
+
+
+
+    print(Vector.scalar(c, c))
 except Exception as e:
     print(e)
