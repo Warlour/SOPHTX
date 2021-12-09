@@ -4,6 +4,7 @@ class Matrix:
             if(len(row) != len(a[0])):
                 raise ValueError(f"A matrix must have the same amount of values in each row and column.\nYours did not: {a}")
 
+        # [Rows, Columns]
         self.size = [len(a), len(a[0])]
         self.data = a
 
@@ -34,7 +35,19 @@ class Matrix:
     def __mul__(self, other):
         # Multiply two matrixes
         if (type(other) == type(Matrix())):
-            pass
+            # If height of self-matrix not equal to width of other-matrix
+            if (self.size[1] != other.size[0]):
+                raise ValueError(f"The amount of rows in the first matrix {self.data} must be equal to the amount of columns in the second matrix {other.data}")
+
+            # prod = []
+            # for i in range(self.size[0]):
+            #     prod.append([])
+            #     for j in range(other.size[0]):
+
+            #         for k in range(self.size[1]):
+            #             prod[k].append(0)
+            #             prod[i][j] += self.data[i][k]*other.data[k][j]
+            # return prod
 
         # Multiply matrix with vector
         elif (type(other) == type(Vector())):
@@ -94,34 +107,32 @@ class Vector:
         if (self.size != other.size):
             raise ValueError("Vectors must be same size")
 
-        # Linear kombination
-        lk = 0
+        # Scalar product
+        sclrprod = 0
 
         for i in range(len(self.data)):
-            lk += self.data[i] * other.data[i]
+            sclrprod += self.data[i] * other.data[i]
 
-        return lk
+        return sclrprod
 
     def __str__(self):
         return "Vector column: " + str(self.data)
 
 if (__name__ == "__main__"):
-    try:
-        data = [[1, 2, 3, 4], [5, 6, 7, 8]]
-        data2 = [[1, 2], [3, 4], [5, 6]]
-        data3 = [[5, 2], [1, 7], [9, 1]]
-        data4 = [[8, 1], [3, 1], [10, 2]]
-        data5 = [9, 3, 8, 1]
-        data6 = [8, 3]
+    data = [[1, 2, 3, 4], [5, 6, 7, 8]]
+    data2 = [[1, 2], [3, 4], [5, 6], [7, 8]]
+    data3 = [[5, 2], [1, 7], [9, 1]]
+    data4 = [[8, 1], [3, 1], [10, 2]]
 
-        A = Matrix(data)
-        B = Matrix(data2)
-        C = Matrix(data3)
-        D = Matrix(data4)
-        a = Vector(data5)
-        b = Vector(data6)
+    data5 = [9, 3, 8, 1]
+    data6 = [8, 3]
 
+    A = Matrix(data)
+    B = Matrix(data2)
+    C = Matrix(data3)
+    D = Matrix(data4)
 
-        print(B*b)
-    except Exception as e:
-        print(e)
+    a = Vector(data5)
+    b = Vector(data6)
+
+    print(A*B)
