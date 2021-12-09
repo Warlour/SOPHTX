@@ -1,19 +1,20 @@
-from Matrix import Matrix
-from Vector import Vector
-import ext_class_func as ecf
+from Matrix import Matrix, Vector
 
 try:
     data1 = [[1, 2], [6, 1], [8, 2], [9, 3]]
-    a = Matrix(data1)
+    A = Matrix(data1)
 
-    data2 = [[3, 4], [5, 8]]
-    b = Matrix(data2)
+    data2 = [[3, 4, 3], [5, 8, 7]]
+    B = Matrix(data2)
 
     data3 = [1, 2, 3]
-    c = Vector(data3)
+    a = Vector(data3)
+
+    data4 = [8, 1]
+    b = Vector(data4)
 
 
 
-    print(Vector.scalar(c, c))
+    print(A*a)
 except Exception as e:
     print(e)
