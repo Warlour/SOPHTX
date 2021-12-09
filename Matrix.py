@@ -1,5 +1,10 @@
 class Matrix:
     def __init__(self, a = [[]]):
+        if (type(a) and type(a[0]) != type(list())):
+            raise TypeError("Matrix is not of type matrix")
+
+        # Raise ValueError if empty Matrix?
+
         for row in a:
             if (len(row) != len(a[0])):
                 raise ValueError(f"A matrix must have the same amount of values in each row and column.\nYours did not: {a}")
@@ -30,6 +35,13 @@ class Matrix:
             for r in range(self.size[0]):
                 for c in range(self.size[1]):
                     sum[r][c] += other.data[r]
+            return Matrix(sum)
+
+        elif (type(other) == type(float) or type(int)):
+            sum = self.data
+            for r in range(self.size[0]):
+                for c in range(self.size[1]):
+                    sum[r][c] += other
             return Matrix(sum)
 
         else:
@@ -80,6 +92,11 @@ class Matrix:
 
 class Vector:
     def __init__(self, a = []):
+        if (type(a) != type(list())):
+            raise TypeError("Vector is not of type vector")
+
+        # Raise ValueError if empty list?
+
         self.size = len(a)
         self.data = a
 
@@ -102,6 +119,12 @@ class Vector:
                 for c in range(other.size[1]):
                     sum[r][c] += self.data[r]
             return Matrix(sum)
+
+        elif (type(other) == type(float) or type(int)):
+            sum = self.data
+            for l in range(self.size):
+                sum[l] += other
+            return Vector(sum)
 
         else:
             raise TypeError(f"{other} is an unknown datatype")
@@ -155,9 +178,11 @@ if (__name__ == "__main__"):
     B = Matrix(data2)
     C = Matrix(data3)
     D = Matrix(data4)
+    E = Matrix([[]])
 
     a = Vector(data5)
     b = Vector(data6)
     c = Vector(data7)
+    d = Vector([1])
 
-    print(c+b)
+    print(a+5)
