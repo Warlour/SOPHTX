@@ -6,7 +6,7 @@ from PIL import Image
 import numpy as np
 import seaborn as sn
 import xlsxwriter as xw
-import time, datetime
+import time
 
 start = time.time()
 
@@ -191,4 +191,4 @@ def generate(repeat: int, inEpochs: int, file: str):
 
     print(f"Check your 'AI Guessing' folder")
 
-generate(0, 0, "test")
+generate(10, 1, "test")

@@ -17,6 +17,6 @@ try:
     a = Vector(data5)
     b = Vector(data6)
 
-    print(A*B)
+    print(a*b)
 except Exception as e:
     print(e)
