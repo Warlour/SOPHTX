@@ -1,6 +1,8 @@
+import typing
+
 class Matrix:
     def __init__(self, a = [[]]):
-        if (type(a) and type(a[0]) != type(list())):
+        if ((type(a) and type(a[0])) != type(list())):
             raise TypeError("Matrix is not of type matrix")
 
         # Raise ValueError if empty Matrix?
@@ -14,7 +16,7 @@ class Matrix:
         self.data = a
 
     # Addition
-    def __add__(self, other):
+    def __add__(self, other: typing.Union["Matrix", "Vector", "float"]):
         if (type(other) == type(Matrix())):
             if (self.size != other.size):
                 raise ValueError(f"Dimensions of either matrix does not match [rows, columns]\nSize of first matrix: {self.size}\nSize of second matrix: {other.size}")
@@ -37,7 +39,7 @@ class Matrix:
                     sum[r][c] += other.data[r]
             return Matrix(sum)
 
-        elif (type(other) == type(float) or type(int)):
+        elif (type(other) == type(float)):
             sum = self.data
             for r in range(self.size[0]):
                 for c in range(self.size[1]):
@@ -48,7 +50,7 @@ class Matrix:
             raise TypeError(f"{other} is an unknown datatype")
 
     # Multiply
-    def __mul__(self, other):
+    def __mul__(self, other: typing.Union["Matrix", "Vector", "float"]):
         # Multiply two matrixes
         if (type(other) == type(Matrix())):
             # If height of self-matrix not equal to width of other-matrix
@@ -76,7 +78,7 @@ class Matrix:
                     prod[i] = (prod[i] + self.data[i][j] * other.data[j])
             return Vector(prod)
 
-        elif (type(other) == type(float) or type(int)):
+        elif (type(other) == type(float)):
             prod = self.data
             for r in range(self.size[0]):
                 for c in range(self.size[1]):
@@ -85,7 +87,6 @@ class Matrix:
 
         else:
             raise TypeError(f"{other} is an unknown datatype")
-            
 
     def __str__(self):
         return str(self.data)
@@ -100,7 +101,7 @@ class Vector:
         self.size = len(a)
         self.data = a
 
-    def __add__(self, other):
+    def __add__(self, other: typing.Union["Matrix", "Vector", "float"]):
         if (type(other) == type(Vector())):
             if (self.size != other.size):
                 raise ValueError("Vectors are not of the same length")
@@ -120,7 +121,7 @@ class Vector:
                     sum[r][c] += self.data[r]
             return Matrix(sum)
 
-        elif (type(other) == type(float) or type(int)):
+        elif (type(other) == type(float)):
             sum = self.data
             for l in range(self.size):
                 sum[l] += other
@@ -129,14 +130,14 @@ class Vector:
         else:
             raise TypeError(f"{other} is an unknown datatype")
 
-    def __mul__(self, other):
+    def __mul__(self, other: typing.Union["Matrix", "Vector", "float"]):
         if (type(other) == type(Vector())):
             raise TypeError("You cannot multiply two vectors.\nHowever, you can calculate the scalarproduct using vector1.scalar(vector2)")
 
         elif (type(other) == type(Matrix())):
             raise TypeError("Vector-matrixproduct is not supported")
 
-        elif (type(other) == type(float) or type(int)):
+        elif (type(other) == type(float)):
             prod = self.data
             for l in range(self.size):
                 prod[l] *= other
@@ -146,8 +147,11 @@ class Vector:
             raise TypeError(f"{other} is an unknown datatype")
 
 
-    def scalar(self, other):
-        '''Returns a constant\n\nParameters: vector, vector'''
+    def scalar(self, other: "Vector"):
+        '''
+        Returns a constant
+        Parameters: vector, vector
+        '''
         if (type(other) != type(Vector())):
             raise TypeError(f"{other} is not of type Vector")
 
@@ -165,7 +169,7 @@ class Vector:
             return "Vector column: " + str(self.data)
 
 if (__name__ == "__main__"):
-    data = [[1, 2, 3, 4], [5, 6, 7, 8]]
+    data = [[1, 2.2, 3, 4], [5, 6, 7, 8]]
     data2 = [[1, 2], [3, 4], [5, 6], [7, 8]]
     data3 = [[5, 2], [1, 7], [9, 1]]
     data4 = [[8, 1], [3, 1], [10, 2]]
@@ -185,4 +189,4 @@ if (__name__ == "__main__"):
     c = Vector(data7)
     d = Vector([1])
 
-    print(a+5)
+    print(a+b)
