@@ -52,7 +52,7 @@ def generate(repeat: int, inEpochs: int, file: str):
     alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
     # Create new workbook/xlsx-file
-    workbook = xw.Workbook(f"{aiFolder}/{file}.xlsx")
+    workbook = xw.Workbook(f"{aiFolder}/{file}/{file}.xlsx")
 
     # Add new worksheet in workbook
     worksheet = workbook.add_worksheet()
@@ -170,10 +170,16 @@ def generate(repeat: int, inEpochs: int, file: str):
     
         plt.close('all')
         repeatEnd = time.time()
-        print(f"Completed {image+1} out of {repeat} | took {(repeatEnd - repeatStart):.2f} seconds")
+        print(f"Completed {image+1} out of {repeat}", end = " | ")
+        print(f"took {(repeatEnd - repeatStart):.2f} seconds", end = "")
+        if (image+1 != repeat):
+            print(f" | ETA: {((repeatEnd - repeatStart)*(repeat-image)):.2f} seconds")
+        else:
+            print()
+
 
     workbook.close()
     end = time.time()
     print(f"Check your 'AI Guessing' folder\nProcess took {(end - start):.2f} seconds")
 
-generate(3, 1, "test2")
+generate(3, 1, "test")
