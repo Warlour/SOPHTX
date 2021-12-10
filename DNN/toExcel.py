@@ -58,6 +58,7 @@ def generate(repeat: int, inEpochs: int, file: str):
     worksheet = workbook.add_worksheet()
 
     for image in range(repeat):
+        repeatStart = time.time()
         # Does the training | 1 epoch is basically fine
         model.fit(x_train_flattened, y_train, epochs = inEpochs)
 
@@ -168,7 +169,8 @@ def generate(repeat: int, inEpochs: int, file: str):
         worksheet.set_row(image+1, 141)
     
         plt.close('all')
-        print(f"Completed {image+1} out of {repeat}")
+        repeatEnd = time.time()
+        print(f"Completed {image+1} out of {repeat} | took {(repeatEnd - repeatStart):.2f} seconds")
 
     workbook.close()
     end = time.time()
