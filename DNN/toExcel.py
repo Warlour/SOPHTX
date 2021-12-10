@@ -57,6 +57,8 @@ def generate(repeat: int, inEpochs: int, file: str):
     # Add new worksheet in workbook
     worksheet = workbook.add_worksheet()
 
+    worksheet.freeze_panes(1, 0)
+
     for image in range(repeat):
         repeatStart = time.time()
         # Does the training | 1 epoch is basically fine
@@ -191,4 +193,4 @@ def generate(repeat: int, inEpochs: int, file: str):
 
     print(f"Check your 'AI Guessing' folder")
 
-generate(10, 1, "test")
+generate(3, 1, "test2")
