@@ -14,14 +14,6 @@ aiFolder = "AI Guessing"
 if (not os.path.exists(aiFolder)):
     os.makedirs(aiFolder)
 
-picFolder = f"{aiFolder}/images"
-if (not os.path.exists(picFolder)):
-    os.makedirs(picFolder)
-
-confusionFolder = f"{aiFolder}/Confusion Matrix"
-if (not os.path.exists(confusionFolder)):
-    os.makedirs(confusionFolder)
-
 (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
 
 # Scale the data so that the values are from 0 - 1
@@ -48,6 +40,14 @@ def generate(repeat: int, inEpochs: int, file: str):
         raise ValueError("Must repeat at least 1 time")
     if (inEpochs < 0):
         raise ValueError("Must have at least 1 epoch")
+
+    picFolder = f"{aiFolder}/{file}/images"
+    if (not os.path.exists(picFolder)):
+        os.makedirs(picFolder)
+
+    confusionFolder = f"{aiFolder}/{file}/Confusion Matrix"
+    if (not os.path.exists(confusionFolder)):
+        os.makedirs(confusionFolder)
 
     alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
@@ -166,9 +166,12 @@ def generate(repeat: int, inEpochs: int, file: str):
 
         worksheet.insert_image(f'O{image+2}', f"{confusionFolder}/{cPicName}_30perc.png")
         worksheet.set_row(image+1, 141)
+    
+        plt.close('all')
+        print(f"Completed {image+1} out of {repeat}")
 
     workbook.close()
     end = time.time()
     print(f"Check your 'AI Guessing' folder\nProcess took {(end - start):.2f} seconds")
 
-generate(10, 1, "test")
+generate(3, 1, "test2")
