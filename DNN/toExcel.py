@@ -6,7 +6,7 @@ from PIL import Image
 import numpy as np
 import seaborn as sn
 import xlsxwriter as xw
-import time
+import time, datetime
 
 start = time.time()
 
@@ -170,16 +170,25 @@ def generate(repeat: int, inEpochs: int, file: str):
     
         plt.close('all')
         repeatEnd = time.time()
-        print(f"Completed {image+1} out of {repeat}", end = " | ")
-        print(f"took {(repeatEnd - repeatStart):.2f} seconds", end = "")
-        if (image+1 != repeat):
-            print(f" | ETA: {((repeatEnd - repeatStart)*(repeat-image)):.2f} seconds")
-        else:
-            print()
+        tookTime = repeatEnd - repeatStart
 
+        eta = tookTime*(repeat - image)
+        m, s = divmod(eta, 60)
+        h, m = divmod(m, 60)
+
+
+        print(f"Completed {image+1} out of {repeat}", end = " | ")
+        print(f"took {tookTime:.2f} seconds", end = " | ")
+        if (image+1 != repeat):
+            print(f"ETA: {h:.0f}h:{m:.0f}m:{s:.0f}s ({eta:.2f} seconds)", end = "\n\n")
 
     workbook.close()
     end = time.time()
-    print(f"Check your 'AI Guessing' folder\nProcess took {(end - start):.2f} seconds")
+    tookTime = end - start
+    m, s = divmod(tookTime, 60)
+    h, m = divmod(m, 60)
+    print(f"Process took {h:.0f}h:{m:.0f}m:{s:.0f}s ({tookTime:.2f} seconds)")
 
-generate(3, 1, "test")
+    print(f"Check your 'AI Guessing' folder")
+
+generate(0, 0, "test")
