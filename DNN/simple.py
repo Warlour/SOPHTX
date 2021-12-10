@@ -2,6 +2,7 @@ import tensorflow as tf
 from tensorflow import keras
 from matplotlib import pyplot as plt
 import numpy as np
+import seaborn as sn
 
 image = int(input("Insert random number from 0-9999: "))
 if (image > 9999 or image < 0):
@@ -41,11 +42,25 @@ y_example = model.predict(x_test_flattened)
 # Evaluate the accuracy of test data
 model.evaluate(x_test_flattened, y_test)
 
-# Queue the image
-plt.matshow(x_test[image])
-
 # Make the predictions
 y_predicted = model.predict(x_test_flattened)
+
+# Confusion matrix
+# Converting y_predicted from whole numbers to integers
+y_predicted_labels = [np.argmax(i) for i in y_predicted]
+
+cm = tf.math.confusion_matrix(labels = y_test, predictions = y_predicted_labels)
+
+plt.figure(figsize = (10,7))
+sn.heatmap(cm, annot=True, fmt='d')
+plt.xlabel('Predicted')
+plt.ylabel('Truth')
+
+picFolder = "AI Guessing/Confusion Matrix"
+picName = f"Nr. {image}, Guess {y_test[image]}, Epoch {inEpochs}"
+
+# Save Confusion matrix as image
+plt.savefig(f"{picFolder}/{picName}.png", bbox_inches = 'tight')
 
 for i in range(len(y_example[image])):
     print(f"Number {i}: {(y_example[image][i]*100):.2f}%")
@@ -54,5 +69,11 @@ print(f"Predicted number: {y_test[image]}")
 
 print(f"Was the number not correct? Try using more epochs")
 
-# Show window
-plt.show()
+# Queue the image
+plt.matshow(x_test[image])
+
+# Save image number (from 0 to 9999), guess, and picture to file
+picFolder = "AI Guessing"
+picName = f"Nr. {image}, Guess {y_test[image]}"
+
+plt.savefig(f"{picFolder}/{picName}.png", bbox_inches = 'tight')
