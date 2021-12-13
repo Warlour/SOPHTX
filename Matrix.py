@@ -165,8 +165,7 @@ class Vector:
         return sclrprod
 
     def __str__(self):
-        if (self.data != None):
-            return "Vector column: " + str(self.data)
+        return str(self.data)
 
 if (__name__ == "__main__"):
     data = [[1, 2.2, 3, 4], [5, 6, 7, 8]]
