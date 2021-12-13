@@ -36,9 +36,9 @@ model.compile(
 )
 def generate(repeat: int, inEpochs: int, file: str):
     '''Parameters: How many numbers to go over, how many epochs, file name to write to'''
-    if (repeat < 0):
+    if (repeat <= 0):
         raise ValueError("Must repeat at least 1 time")
-    if (inEpochs < 0):
+    if (inEpochs <= 0):
         raise ValueError("Must have at least 1 epoch")
 
     picFolder = f"{aiFolder}/{file}/images"
@@ -193,4 +193,4 @@ def generate(repeat: int, inEpochs: int, file: str):
 
     print(f"Check your 'AI Guessing' folder")
 
-generate(3, 1, "test2")
+generate(0, 0, "test")
