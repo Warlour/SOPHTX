@@ -5,13 +5,15 @@ class Matrix:
         if ((type(a) and type(a[0])) != type(list())):
             raise TypeError(f"Matrix {a} is not of type matrix")
 
+        # If matrix is empty
+        if (not a or not a[0]):
+            raise ValueError(f"{a}: Matrix cannot be empty")
+
         for row in a:
             if (len(row) != len(a[0])):
                 raise ValueError(f"A matrix must have the same amount of values in each row and column.\nYours did not: {a}")
 
-        # If matrix is empty
-        if (not a or not a[0]):
-            raise ValueError(f"{a}: Matrix cannot be empty")
+        
 
         # [Rows, Columns]
         self.size = [len(a), len(a[0])]
