@@ -8,6 +8,9 @@ try:
 
     data5 = [9, 3, 8, 1]
     data6 = [8, 3]
+    data7 = []
+    data8 = [[]]
+    data9 = [[], []]
 
     A = Matrix(data)
     B = Matrix(data2)
@@ -17,6 +20,10 @@ try:
     a = Vector(data5)
     b = Vector(data6)
 
-    print(f"{b} + {A} = {b+A}")
+    # c = Vector(data7)
+    # E = Matrix(data8)
+    # F = Matrix(data9)
+
+    print(a)
 except Exception as e:
     print(e)
