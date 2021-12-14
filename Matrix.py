@@ -3,13 +3,15 @@ import typing
 class Matrix:
     def __init__(self, a = [[]]):
         if ((type(a) and type(a[0])) != type(list())):
-            raise TypeError("Matrix is not of type matrix")
-
-        # Raise ValueError if empty Matrix?
+            raise TypeError(f"Matrix {a} is not of type matrix")
 
         for row in a:
             if (len(row) != len(a[0])):
                 raise ValueError(f"A matrix must have the same amount of values in each row and column.\nYours did not: {a}")
+
+        # If matrix is empty
+        if (not a or not a[0]):
+            raise ValueError(f"{a}: Matrix cannot be empty")
 
         # [Rows, Columns]
         self.size = [len(a), len(a[0])]
@@ -94,9 +96,11 @@ class Matrix:
 class Vector:
     def __init__(self, a = []):
         if (type(a) != type(list())):
-            raise TypeError("Vector is not of type vector")
+            raise TypeError(f"Vector {a} is not of type vector")
 
-        # Raise ValueError if empty list?
+        # If list is empty
+        if (not a):
+            raise ValueError(f"{a}: Vector cannot be empty")
 
         self.size = len(a)
         self.data = a
