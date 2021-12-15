@@ -13,6 +13,9 @@ Steder markeret med * er citeret af milindsoorya fra https://dev.to/milindsoorya
 citeringen stopper ved linjeskift
 '''
 
+a = int(input("Hvor mange samples vil du gå gennem? Dette starter fra nul af: "))
+b = int(input("Hvor mange epochs?: "))
+
 start = time.time()
 
 aiFolder = "AI Guessing"
@@ -203,4 +206,4 @@ def generate(repeat: int, inEpochs: int, file: str):
 
     print(f"Check your 'AI Guessing' folder")
 
-generate(0, 0, "test")
+generate(a, b, "test")
