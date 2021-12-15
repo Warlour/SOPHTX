@@ -1,24 +1,26 @@
-import typing
+from typing import Union
 
 class Matrix:
     def __init__(self, a = [[]]):
         if ((type(a) and type(a[0])) != type(list())):
             raise TypeError(f"Matrix {a} is not of type matrix")
 
+        # If matrix is empty
+        if (not a or not a[0]):
+            raise ValueError(f"{a}: Matrix cannot be empty")
+
         for row in a:
             if (len(row) != len(a[0])):
                 raise ValueError(f"A matrix must have the same amount of values in each row and column.\nYours did not: {a}")
 
-        # If matrix is empty
-        if (not a or not a[0]):
-            raise ValueError(f"{a}: Matrix cannot be empty")
+        
 
         # [Rows, Columns]
         self.size = [len(a), len(a[0])]
         self.data = a
 
     # Addition
-    def __add__(self, other: typing.Union["Matrix", "Vector", "float"]):
+    def __add__(self, other: Union["Matrix", "Vector", "float"]):
         if (type(other) == type(Matrix())):
             if (self.size != other.size):
                 raise ValueError(f"Dimensions of either matrix does not match [rows, columns]\nSize of first matrix: {self.size}\nSize of second matrix: {other.size}")
@@ -52,7 +54,7 @@ class Matrix:
             raise TypeError(f"{other} is an unknown datatype")
 
     # Multiply
-    def __mul__(self, other: typing.Union["Matrix", "Vector", "float"]):
+    def __mul__(self, other: Union["Matrix", "Vector", "float"]):
         # Multiply two matrixes
         if (type(other) == type(Matrix())):
             # If height of self-matrix not equal to width of other-matrix
@@ -105,7 +107,7 @@ class Vector:
         self.size = len(a)
         self.data = a
 
-    def __add__(self, other: typing.Union["Matrix", "Vector", "float"]):
+    def __add__(self, other: Union["Matrix", "Vector", "float"]):
         if (type(other) == type(Vector())):
             if (self.size != other.size):
                 raise ValueError("Vectors are not of the same length")
@@ -134,7 +136,7 @@ class Vector:
         else:
             raise TypeError(f"{other} is an unknown datatype")
 
-    def __mul__(self, other: typing.Union["Matrix", "Vector", "float"]):
+    def __mul__(self, other: Union["Matrix", "Vector", "float"]):
         if (type(other) == type(Vector())):
             raise TypeError("You cannot multiply two vectors.\nHowever, you can calculate the scalarproduct using vector1.scalar(vector2)")
 
