@@ -3,6 +3,9 @@ from tensorflow import keras
 from matplotlib import pyplot as plt
 import numpy as np
 import seaborn as sn
+import os
+
+folder = "simple"
 
 image = int(input("Insert random number from 0-9999: "))
 if (image > 9999 or image < 0):
@@ -56,7 +59,9 @@ sn.heatmap(cm, annot=True, fmt='d')
 plt.xlabel('Predicted')
 plt.ylabel('Truth')
 
-picFolder = "AI Guessing/Confusion Matrix"
+picFolder = f"{folder}/Confusion Matrix"
+if (not os.path.exists(picFolder)):
+    os.makedirs(picFolder)
 picName = f"Nr. {image}, Guess {y_test[image]}, Epoch {inEpochs}"
 
 # Save Confusion matrix as image
@@ -73,7 +78,9 @@ print(f"Was the number not correct? Try using more epochs")
 plt.matshow(x_test[image])
 
 # Save image number (from 0 to 9999), guess, and picture to file
-picFolder = "AI Guessing"
+picFolder = f"{folder}/Images"
+if (not os.path.exists(picFolder)):
+    os.makedirs(picFolder)
 picName = f"Nr. {image}, Guess {y_test[image]}"
 
 plt.savefig(f"{picFolder}/{picName}.png", bbox_inches = 'tight')
