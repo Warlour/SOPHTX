@@ -15,6 +15,7 @@ citeringen stopper ved linjeskift
 
 a = int(input("Hvor mange samples vil du gå gennem? Dette starter fra nul af: "))
 b = int(input("Hvor mange epochs?: "))
+c = input("Filnavn: ")
 
 start = time.time()
 
@@ -156,13 +157,15 @@ def generate(repeat: int, inEpochs: int, file: str):
         with Image.open(f"{picFolder}/{picName}.png") as imgI:
             width_100 = imgI.width
             height_100 = imgI.height
-        
+
+        # %
         width_30 = int(round(width_100 * 0.3, 0))
         imgI = Image.open(f"{picFolder}/{picName}.png")
         wpercent = (width_30/float(width_100))
         hsize = int((float(height_100)*float(wpercent)))
         imgI = imgI.resize((width_30, hsize), Image.ANTIALIAS)
         imgI.save(f"{picFolder}/{picName}_30perc.png")
+
         worksheet.set_column('N:N', 18)
         
         worksheet.insert_image(f'N{image+2}', f"{picFolder}/{picName}_30perc.png")
@@ -178,7 +181,7 @@ def generate(repeat: int, inEpochs: int, file: str):
         hsize = int((float(height_100)*float(wpercent)))
         imgC = imgC.resize((width_30, hsize), Image.ANTIALIAS)
         imgC.save(f"{confusionFolder}/{cPicName}_30perc.png")
-        worksheet.set_column('O:O', 18)
+        worksheet.set_column('O:O', 35)
 
         worksheet.insert_image(f'O{image+2}', f"{confusionFolder}/{cPicName}_30perc.png")
         worksheet.set_row(image+1, 141)
@@ -191,19 +194,20 @@ def generate(repeat: int, inEpochs: int, file: str):
         m, s = divmod(eta, 60)
         h, m = divmod(m, 60)
 
-
         print(f"Completed {image+1} out of {repeat}", end = " | ")
         print(f"took {tookTime:.2f} seconds", end = " | ")
         if (image+1 != repeat):
             print(f"ETA: {h:.0f}h:{m:.0f}m:{s:.0f}s ({eta:.2f} seconds)", end = "\n\n")
 
-    workbook.close()
     end = time.time()
     tookTime = end - start
     m, s = divmod(tookTime, 60)
     h, m = divmod(m, 60)
+    worksheet.write('N1', f"Process took {h:.0f}h:{m:.0f}m:{s:.0f}s ({tookTime:.2f} seconds)", )
+
+    workbook.close()
     print(f"Process took {h:.0f}h:{m:.0f}m:{s:.0f}s ({tookTime:.2f} seconds)")
 
     print(f"Check your 'AI Guessing' folder")
 
-generate(a, b, "test")
+generate(a, b, c)
