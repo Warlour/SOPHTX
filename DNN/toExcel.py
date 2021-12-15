@@ -8,32 +8,39 @@ import seaborn as sn
 import xlsxwriter as xw
 import time
 
+'''
+Steder markeret med * er citeret af milindsoorya fra https://dev.to/milindsoorya/mnist-handwritten-digit-classification-using-tensorflow-3k7d,
+citeringen stopper ved linjeskift
+'''
+
 start = time.time()
 
 aiFolder = "AI Guessing"
 if (not os.path.exists(aiFolder)):
     os.makedirs(aiFolder)
 
+# *
 (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
 
-# Scale the data so that the values are from 0 - 1
+# * Scale the data so that the values are from 0 - 1
 x_train = x_train / 255
 x_test = x_test / 255
 
-# Flattening the train and test data
+# * Flattening the train and test data
 x_train_flattened = x_train.reshape(len(x_train), 28*28)
 x_test_flattened = x_test.reshape(len(x_test), 28*28)
 
-'''Part 1 - Create a simple neural network in Keras
+'''* Part 1 - Create a simple neural network in Keras
 Sequential create a stack of layers'''
 model = keras.Sequential([keras.layers.Dense(10, input_shape = (784,), activation = 'sigmoid')])
 
-# Optimizer will help in backpropagation to reach better global optima
+# * Optimizer will help in backpropagation to reach better global optima
 model.compile(
     optimizer = 'adam',
     loss = 'sparse_categorical_crossentropy',
     metrics = ['accuracy']
 )
+
 def generate(repeat: int, inEpochs: int, file: str):
     '''Parameters: How many numbers to go over, how many epochs, file name to write to'''
     if (repeat <= 0):
@@ -61,22 +68,22 @@ def generate(repeat: int, inEpochs: int, file: str):
 
     for image in range(repeat):
         repeatStart = time.time()
-        # Does the training | 1 epoch is basically fine
+
+        # * Does the training | 1 epoch is basically fine
         model.fit(x_train_flattened, y_train, epochs = inEpochs)
 
-        # Use model from image x_test and get 10 numbers in y_example
+        # * Use model from image x_test and get 10 numbers in y_example
         y_example = model.predict(x_test_flattened)
 
-        # Evaluate the accuracy of test data
+        # * Evaluate the accuracy of test data
         model.evaluate(x_test_flattened, y_test)
 
-        # Make the predictions
+        # * Make the predictions
         y_predicted = model.predict(x_test_flattened)
 
         # Confusion matrix
-        # Converting y_predicted from whole numbers to integers
+        # * Converting y_predicted from whole numbers to integers
         y_predicted_labels = [np.argmax(i) for i in y_predicted]
-
         cm = tf.math.confusion_matrix(labels = y_test, predictions = y_predicted_labels)
 
         plt.figure(figsize = (10,7))
@@ -137,9 +144,12 @@ def generate(repeat: int, inEpochs: int, file: str):
             else:
                 worksheet.write(f'{alphabet[i+3]}{image+2}', f'{y_example[image][i]:.5f}', predicted_format)
 
-        # Insert number image
-        # Thanks to patrickjlong1 
-        # https://stackoverflow.com/questions/50945999/resize-excel-cell-to-fit-an-image
+        '''
+        Insert number image
+        Thanks to patrickjlong1 | Citeringen markeret med %
+        https://stackoverflow.com/questions/50945999/resize-excel-cell-to-fit-an-image
+        '''
+        # %
         with Image.open(f"{picFolder}/{picName}.png") as imgI:
             width_100 = imgI.width
             height_100 = imgI.height
@@ -154,7 +164,7 @@ def generate(repeat: int, inEpochs: int, file: str):
         
         worksheet.insert_image(f'N{image+2}', f"{picFolder}/{picName}_30perc.png")
 
-        # Insert confusion matrix image
+        # % Insert confusion matrix image
         with Image.open(f"{confusionFolder}/{cPicName}.png") as imgC:
             width_100 = imgC.width
             height_100 = imgC.height
