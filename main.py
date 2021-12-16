@@ -10,21 +10,26 @@ try:
 
     data5 = [9, 3, 8, 1]
     data6 = [8, 3, 2, 1]
+    data7 = [3, 2]
 
+
+    # Matrixer
     A = Matrix(data)
     B = Matrix(data2)
     C = Matrix(data3)
     D = Matrix(data4)
 
+    # Vektorer
     a = Vector(data5)
     b = Vector(data6)
-
-    # c = Vector(data7)
-    # E = Matrix(data8)
-    # F = Matrix(data9)
+    c = Vector(data7)
 
     start = time.time()
-    E = A*B
+
+    # Indsæt regnestykke på næste linje, prøv at gange nogle af dataerne sammen NOTER: Fejlkoder står på engelsk
+    E = A*c
+    # Kør programmet når du har lavet regnestykket
+
     end = time.time()
     tookTime = end - start
     print(f"{E}, took {tookTime} seconds")
