@@ -61,6 +61,9 @@ class Matrix:
             if (self.size[1] != other.size[0]):
                 raise ValueError(f"The amount of rows in the first matrix {self.size} must be equal to the amount of columns in the second matrix {other.size} ([Rows, Columns])")
 
+            if (self.size[0] == other.size[0] and self.size[1] == other.size[1]):
+                raise ValueError(f"{self.data} and {other.data}: Multiplication of matrixes with the same dimensions is not supported")
+
             prod = []
             for i in range(self.size[0]):
                 prod.append([])
@@ -93,7 +96,7 @@ class Matrix:
             raise TypeError(f"{other} is an unknown datatype")
 
     def __str__(self):
-        return str(self.data)
+        return f" = {str(self.data)}"
 
 class Vector:
     def __init__(self, a = []):
@@ -152,7 +155,6 @@ class Vector:
         else:
             raise TypeError(f"{other} is an unknown datatype")
 
-
     def scalar(self, other: "Vector"):
         '''
         Returns a constant
@@ -171,7 +173,7 @@ class Vector:
         return sclrprod
 
     def __str__(self):
-        return str(self.data)
+        return f" = {str(self.data)}"
 
 if (__name__ == "__main__"):
     data = [[1, 2.2, 3, 4], [5, 6, 7, 8]]
