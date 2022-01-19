@@ -1,29 +1,38 @@
 from Matrix import Matrix, Vector
 
+import time
+
 try:
-    data = [[1, 2, 3, 4], [5, 6, 7, 8]]
-    data2 = [[1, 2], [3, 4], [5, 6]]
-    data3 = [[5, 2], [1, 7], [9, 1]]
-    data4 = [[8, 1], [3, 1], [10, 2]]
+    data1 = [[76, 23, 95], [12, 87, 43], [76, 15, 98]]
+    data2 = [[87, 34, 76], [23, 43, 12], [98, 23, 54]]
 
-    data5 = [9, 3, 8, 1]
-    data6 = [8, 3]
-    data7 = []
-    data8 = [[]]
-    data9 = [[], []]
-
-    A = Matrix(data)
+    A = Matrix(data1)
     B = Matrix(data2)
-    C = Matrix(data3)
-    D = Matrix(data4)
 
-    a = Vector(data5)
-    b = Vector(data6)
+    data3 = [[75, 22, 59], [12, 86, 45]]
+    data4 = [[76, 54], [12, 98], [34, 56]]
 
-    # c = Vector(data7)
-    # E = Matrix(data8)
-    # F = Matrix(data9)
+    D = Matrix(data3)
+    E = Matrix(data4)
 
-    print(a)
+    F = D*E
+
+    data5 = [[76, 32, 98, 87], [54, 87, 12, 43]]
+    data6 = [63, 37, 72, 18]
+
+    G = Matrix(data5)
+    a = Vector(data6)
+
+    start = time.time()
+
+    # Indsæt regnestykke på næste linje, prøv at gange nogle af dataerne sammen NOTER: Fejlkoder står på engelsk
+    b = G*a
+    # Kør programmet når du har lavet regnestykket
+
+    b = G*a
+    
+    end = time.time()
+    tookTime = end - start
+    print(f"Produkt{b}")
 except Exception as e:
     print(e)

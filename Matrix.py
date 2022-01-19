@@ -5,9 +5,9 @@ class Matrix:
         if ((type(a) and type(a[0])) != type(list())):
             raise TypeError(f"Matrix {a} is not of type matrix")
 
-        # If matrix is empty
-        if (not a or not a[0]):
-            raise ValueError(f"{a}: Matrix cannot be empty")
+        # If matrix is empty | Didn't work
+        # if (not a or not a[0]):
+        #     raise ValueError(f"{a}: Matrix cannot be empty")
 
         for row in a:
             if (len(row) != len(a[0])):
@@ -61,6 +61,9 @@ class Matrix:
             if (self.size[1] != other.size[0]):
                 raise ValueError(f"The amount of rows in the first matrix {self.size} must be equal to the amount of columns in the second matrix {other.size} ([Rows, Columns])")
 
+            if (self.size[0] == other.size[0] and self.size[1] == other.size[1]):
+                raise ValueError(f"{self.data} and {other.data}: Multiplication of matrixes with the same dimensions is not supported")
+
             prod = []
             for i in range(self.size[0]):
                 prod.append([])
@@ -93,7 +96,7 @@ class Matrix:
             raise TypeError(f"{other} is an unknown datatype")
 
     def __str__(self):
-        return str(self.data)
+        return f" = {str(self.data)}"
 
 class Vector:
     def __init__(self, a = []):
@@ -101,8 +104,8 @@ class Vector:
             raise TypeError(f"Vector {a} is not of type vector")
 
         # If list is empty
-        if (not a):
-            raise ValueError(f"{a}: Vector cannot be empty")
+        # if (not a):
+        #     raise ValueError(f"{a}: Vector cannot be empty")
 
         self.size = len(a)
         self.data = a
@@ -152,7 +155,6 @@ class Vector:
         else:
             raise TypeError(f"{other} is an unknown datatype")
 
-
     def scalar(self, other: "Vector"):
         '''
         Returns a constant
@@ -171,27 +173,19 @@ class Vector:
         return sclrprod
 
     def __str__(self):
-        return str(self.data)
+        return f" = {str(self.data)}"
 
 if (__name__ == "__main__"):
     data = [[1, 2.2, 3, 4], [5, 6, 7, 8]]
     data2 = [[1, 2], [3, 4], [5, 6], [7, 8]]
-    data3 = [[5, 2], [1, 7], [9, 1]]
-    data4 = [[8, 1], [3, 1], [10, 2]]
-
-    data5 = [9, 3, 8, 1]
-    data6 = [8, 3]
-    data7 = [5, 2]
+    data3 = [1, 5]
+    data4 = [7, 2]
+    data5 = [1, 2, 4, 9]
 
     A = Matrix(data)
     B = Matrix(data2)
-    C = Matrix(data3)
-    D = Matrix(data4)
-    E = Matrix([[]])
+    d = Vector(data3)
+    e = Vector(data4)
+    f = Vector(data5)
 
-    a = Vector(data5)
-    b = Vector(data6)
-    c = Vector(data7)
-    d = Vector([1])
-
-    print(a+b)
+    print(A*f)
